@@ -8,7 +8,7 @@ This is a more general abstraction to the 0x protocol that allows for an incenti
 {
   id: PERMUTATION_HASH
   sellAddress: TOKEN_ADDRESS,
-  sellPrice: '0.87587852',
+  sellPrice: '0.00000000',
   filled: 0,
   lifetime: UNIX_TIMESTAMP
   signature: '',
