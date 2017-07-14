@@ -16,7 +16,7 @@ This is a more general abstraction to the 0x protocol that allows for an incenti
 ```
 
 ### Permutation Hash
-The permutation hash is derived from the address of the token pair it points too.
+The permutation hash is derived from the address of the token pair it points to.
 
 Given `tokenAddressA` and `tokenAddressB`,
 1. Compute an alphanumeric sort on the token pair. This is a replicable calculation on the cipher text to ensure the token pair is always hashed in the same order.
