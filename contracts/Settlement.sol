@@ -4,6 +4,7 @@ contract Settlement {
   bytes32 public permutationID;
   address public tokenA;
   address public tokenB;
+  mapping(address => mapping(bytes32 => uint));
 
   function Settlement(bytes32 permutationID, address TokenA, address TokenB) {
     permutationID = permutationID;
