@@ -1,7 +1,7 @@
 # Mob Protocol
 
 ## Summary
-This is a more general abstraction to the 0x protocol that allows for an incentivized `Matching Agent Swarm` to form around `ERC20` token permutations. The notation of maker-taker orders are abstracted away in favor of a single `Limit Order` definition.
+This is a more general abstraction to the 0x protocol that allows for an incentivized `Matching Agent Swarm` to form around `ERC20` token permutations. The notion of maker-taker orders are abstracted away in favor of a single `Limit Order` definition.
 
 ## Limit Order
 ```
@@ -37,4 +37,8 @@ A user initiates an order by performing an ECDSA signature with there private ke
 ## Permutation Registry
 There are a finite number of permutations given a set of tokens. A contract registry will exist containing the mapping between unique contract hashes and the address of the corresponding settlement contract. This "name space" can be auctioned off similair to ENS.
 
-## Settlment Contract
+## Settlement Contract
+1. Optional Order Broadcasting
+2. "In the Market" Enforcement
+3. Partial Fills
+4. Order Canceling
