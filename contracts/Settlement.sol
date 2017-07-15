@@ -15,8 +15,14 @@ contract Settlement {
   function broadcast(bytes32 order, uint sellAmount) {
     orders[msg.sender][order] = sellAmount;
   }
+
+  function getSender() returns (address) {
+      return msg.sender;
+  }
 }
 /**
 Testing Inputs:
 
 "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f"
+
+"0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", 10
