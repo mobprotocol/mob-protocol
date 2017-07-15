@@ -33,3 +33,8 @@ Sell Price is specified by bytes32 representation of the minimum accepted price.
 
 ## Order Signing R-S-V
 A user initiates an order by performing an ECDSA signature with there private key on the stringified json object. Given the users private key and the order object, an `r` `s` `v` output is appended to the order object.
+
+## Permutation Registry
+There are a finite number of permutations given a set of tokens. A contract registry will exist containing the mapping between unique contract hashes and the address of the corresponding settlement contract. This "name space" can be auctioned off similair to ENS.
+
+## Settlment Contract
