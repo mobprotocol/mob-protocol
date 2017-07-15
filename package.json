@@ -14,5 +14,8 @@
     "0x"
   ],
   "author": "Sean Pollock",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-util": "^5.1.2"
+  }
 }
