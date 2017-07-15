@@ -4,7 +4,10 @@ contract Settlement {
   bytes32 public permutationID;
   address public tokenA;
   address public tokenB;
+
   mapping(address => mapping(bytes32 => uint)) public orders;
+
+  event orderBroadcast(address sender, bytes32 order, uint amount, bytes32 price);
 
   function Settlement(bytes32 _permutationID, address _tokenA, address _tokenB) {
     permutationID = _permutationID;
@@ -12,7 +15,8 @@ contract Settlement {
     tokenB = _tokenB;
   }
 
-  function broadcast(bytes32 order, uint sellAmount) {
+  function broadcast(bytes32 order, uint sellAmount, bytes32 price) {
+    orderBroadcast(msg.sender, order, sellAmount, price);
     orders[msg.sender][order] = sellAmount;
   }
 
@@ -26,3 +30,5 @@ Testing Inputs:
 "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f"
 
 "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", 10
+
+"0xca35b7d915458ef540ade6068dfe2f44e8fa733c", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f"
