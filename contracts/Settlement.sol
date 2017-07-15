@@ -5,7 +5,9 @@ contract Settlement {
   address public tokenA;
   address public tokenB;
 
-  function Settlement(bytes32 permutationID, address TokenA, addressTokenB) {
-
+  function Settlement(bytes32 permutationID, address TokenA, address TokenB) {
+    permutationID = permutationID;
+    tokenA = tokenA;
+    tokenB = tokenB;
   }
 }
