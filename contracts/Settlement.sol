@@ -15,10 +15,23 @@ contract Settlement {
     tokenB = _tokenB;
   }
 
-  function broadcast(bytes32 order, uint sellAmount, bytes32 price) {
+  function broadcast(bytes32 order, uint sellAmount, bytes32 price) returns (bool){
     orderBroadcast(msg.sender, order, sellAmount, price);
     orders[msg.sender][order] = sellAmount;
+    return true;
   }
+
+  function match(uint quantity, bytes32 price, address tokenSell, address tokenBuy, bytes32 permutationID) {
+    // verify vrs of sender
+
+    // verify orders are in the market
+
+    // verify sendAmounts
+
+    // transfer tokens
+  }
+
+
 
   function getSender() returns (address) {
       return msg.sender;
