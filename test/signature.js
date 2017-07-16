@@ -13,8 +13,17 @@ function signTest(obj) {
 
 function hashMessage(msg) {
   return new Promise((resolve, reject) => {
-    resolve(hashPersonalMessage(Buffer.from(, 'utf8')))
+    resolve(hashPersonalMessage(Buffer.from(msg, 'utf8')))
   })
 }
 
-signTest()
+const order = {
+  seller: '',
+  amount: '',
+  price: '',
+  tokenSell: '',
+  tokenBuy: '',
+  permutation: ''
+}
+
+signTest(order)
