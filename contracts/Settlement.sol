@@ -21,9 +21,10 @@ contract Settlement {
     return true;
   }
 
-  function match(bytes32 order1, bytes32 order2, bytes32[3] sig1, bytes32[3] sig2) returns (address){
+  function match(bytes32 order1, bytes32[3] sig1) returns (address){
     // ecrecover public keys
-    address seller1 = e
+    address seller1 = ecrecover(order1, sig1[1], sig1[2], sig1[3]);
+    return seller1;
 
     // verify orders are in the market
 
