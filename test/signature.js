@@ -17,9 +17,9 @@ function signTest(obj) {
       return recover(hashedMsg, res.v, res.r, res.s)
     }).then((publicKey) => {
       console.log('publicKey', publicKey.toString('hex'))
-      const originalKey = privateToPublic(Buffer.from('65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d', 'hex'))
-      console.log('originalkey', originalKey.toString('hex'))
-      if (publicKey == originalKey.toString('hex')) {
+      const originalKey = privateToPublic(Buffer.from('65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d', 'hex')).toString('hex')
+      console.log('originalkey', originalKey)
+      if (publicKey.toString('hex') === originalKey) {
         console.log('boom! ecrecover works')
       } else {
         console.log('public keys did not match')
