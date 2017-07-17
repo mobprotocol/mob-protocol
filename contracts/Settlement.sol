@@ -21,14 +21,18 @@ contract Settlement {
     return true;
   }
 
-  function match(uint quantity, bytes32 price, address tokenSell, address tokenBuy, bytes32 permutationID) {
-    // verify vrs of sender
+  function match(bytes32 order1, bytes32 order2, bytes32[3] sig1, bytes32[3] sig2) returns (address){
+    // ecrecover public keys
+    address seller1 = e
 
     // verify orders are in the market
+
+    // verify approvals
 
     // verify sendAmounts
 
     // transfer tokens
+
   }
 
 
