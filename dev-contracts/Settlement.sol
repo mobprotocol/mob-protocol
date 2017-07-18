@@ -1,7 +1,6 @@
 pragma solidity ^0.4.11;
-import 'SafeMath.sol'
 
-contract Settlement is SafeMath {
+contract Settlement {
   address public permutationID;
   address public tokenA;
   address public tokenB;
@@ -23,23 +22,13 @@ contract Settlement is SafeMath {
   }
 
   function matchOrder(bytes32[3] sig1, bytes32[3] sig2, bytes32 permutation, address sellToken1, address sellToken2) returns (bool) {
-    // verify order
-
-    // verify orders are in the market
-
-    // verify approvals
-
-    // verify sendAmounts
-
-    // transfer tokens
-
     return true;
   }
 
   function verifyOrder(bytes32[3] sig, bytes32 permutation, address sellToken, uint amount, uint price) returns (bool) {
     bytes memory prefix = "\x19Ethereum Signed Message:\n32";
     bytes32 msg = sha3(prefix, permutation, sellToken, amount, price);
-    address seller1 = ecrecover(msg, v, r, s);
+    /*address seller1 = ecrecover(msg, v, r, s);*/
     return true;
   }
 
@@ -47,7 +36,3 @@ contract Settlement is SafeMath {
     return true;
   }
 }
-/**
-Testing Inputs:
-
-"0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f", "0x8550e43dd8cc744ac8ccd7b7d160484b9a338c0f"

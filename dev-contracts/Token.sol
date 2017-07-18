@@ -11,7 +11,7 @@ contract Token {
     string public ticker;
     uint public supply;
 
-    function Asset(string _name, string _ticker, uint _supply) {
+    function Token(string _name, string _ticker, uint _supply) {
         name = _name;
         ticker = _ticker;
         supply = _supply;
@@ -27,7 +27,7 @@ contract Token {
     }
 
     function approve( address spender, uint value ) returns (bool) {
-        require(balances[msg.sender] >= value)
+        require(balances[msg.sender] >= value);
         approvals[msg.sender][spender] = value;
         Approval( msg.sender, spender, value );
         return true;
