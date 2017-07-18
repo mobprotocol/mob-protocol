@@ -1,0 +1,231 @@
+{
+  "contract_name": "Settlement",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "price1",
+          "type": "uint256"
+        },
+        {
+          "name": "price2",
+          "type": "uint256"
+        }
+      ],
+      "name": "priceInMarket",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "sig1",
+          "type": "bytes32[3]"
+        },
+        {
+          "name": "sig2",
+          "type": "bytes32[3]"
+        },
+        {
+          "name": "permutation",
+          "type": "bytes32"
+        },
+        {
+          "name": "sellToken1",
+          "type": "address"
+        },
+        {
+          "name": "sellToken2",
+          "type": "address"
+        }
+      ],
+      "name": "matchOrder",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenA",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "permutationID",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tokenB",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "order",
+          "type": "bytes32"
+        },
+        {
+          "name": "sellAmount",
+          "type": "uint256"
+        },
+        {
+          "name": "price",
+          "type": "bytes32"
+        }
+      ],
+      "name": "broadcast",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "sig",
+          "type": "bytes32[3]"
+        },
+        {
+          "name": "permutation",
+          "type": "bytes32"
+        },
+        {
+          "name": "sellToken",
+          "type": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "verifyOrder",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "orders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_permutationID",
+          "type": "address"
+        },
+        {
+          "name": "_tokenA",
+          "type": "address"
+        },
+        {
+          "name": "_tokenB",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "order",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "price",
+          "type": "bytes32"
+        }
+      ],
+      "name": "orderBroadcast",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000c57fe5b6040516060806104f68339810160409081528151602083015191909201515b60008054600160a060020a03808616600160a060020a0319928316179092556001805485841690831617905560028054928416929091169190911790555b5050505b61047a8061007c6000396000f300606060405236156100725763ffffffff60e060020a60003504166309aa0af581146100745780630bdc2d991461009e5780630fc63d101461012b57806340dda77e146101575780635f64b55b146101835780639eda8780146101af578063b882d261146101dc578063bb5f462914610245575bfe5b341561007c57fe5b61008a600435602435610276565b604080519115158252519081900360200190f35b34156100a657fe5b60408051606081810190925261008a9160049160649183906003908390839080828437505060408051606081810190925294969581810195945092506003915083908390808284375093955050833593600160a060020a0360208201358116945060409091013516915061027f9050565b604080519115158252519081900360200190f35b341561013357fe5b61013b61028b565b60408051600160a060020a039092168252519081900360200190f35b341561015f57fe5b61013b61029a565b60408051600160a060020a039092168252519081900360200190f35b341561018b57fe5b61013b6102a9565b60408051600160a060020a039092168252519081900360200190f35b34156101b757fe5b61008a6004356024356044356102b8565b604080519115158252519081900360200190f35b34156101e457fe5b60408051606081810190925261008a91600491606491839060039083908390808284375093955050833593600160a060020a0360208201351693506040810135925060600135905061033d565b604080519115158252519081900360200190f35b341561024d57fe5b610264600160a060020a036004351660243561041f565b60408051918252519081900360200190f35b60015b92915050565b60015b95945050505050565b600154600160a060020a031681565b600054600160a060020a031681565b600254600160a060020a031681565b60408051600160a060020a0333168152602081018590528082018490526060810183905290516000917f0e7450d671a646d541a6b9a431d8027236d002770974343db35b137649ad58d1919081900360800190a150600160a060020a0333166000908152600360209081526040808320868452909152902082905560015b9392505050565b600061034761043c565b6000604060405190810160405280601c81526020017f19457468657265756d205369676e6564204d6573736167653a0a333200000000815250915081878787876040518086805190602001908083835b602083106103b65780518252601f199092019160209182019101610397565b51815160209384036101000a6000190180199092169116179052920196875250600160a060020a0394909416606060020a02938501939093526034840191909152605483015250604051607491819003919091019020600194509150505b505095945050505050565b600360209081526000928352604080842090915290825290205481565b604080516020810190915260008152905600a165627a7a723058204504bf92d40081251c3f2b38b3d2a30b4bf7a3bab0e9449e46596262e74d44cf0029",
+  "networks": {},
+  "schema_version": "0.0.5",
+  "updated_at": 1500413333832
+}
