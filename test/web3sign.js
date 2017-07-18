@@ -3,7 +3,10 @@ var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 function getAddress() {
   return new Promise((resolve, reject) => {
-
+    web3.eth.getAccounts((err, res) => {
+      if (err) { reject (err)}
+      resolve(res)
+    })
   })
 }
 
@@ -24,8 +27,11 @@ function test() {
     let  addresss
     let hashedData
     return getAddress()
-    .then(() => {
-      
+    .then((res) => {
+      address = res
+      console.log('res', res)
     })
   })
 }
+
+test()
