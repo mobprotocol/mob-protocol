@@ -1,4 +1,5 @@
 const eth = require('ethereumjs-util')
+const sha3 = require('solidity-sha3').default
 
 const { ecsign, hashPersonalMessage, ecrecover, privateToPublic } = eth
 
@@ -7,23 +8,22 @@ function signTest(obj) {
     let hashedMsg
     return hashMessage(JSON.stringify(obj))
     .then((hash) => {
-      console.log('hash', hash.toString('hex'))
-      hashedMsg = hash
-      return signOrder(hash.toString('hex'), '65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d')
+        console.log('hash', hash)
+        hashedMessage = Buffer.from(hash, 'hex')
+
+      return signOrder(hash, '65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d')
     }).then((res) => {
       console.log('v', res.v)
       console.log('r', res.r.toString('hex'))
       console.log('s', res.s.toString('hex'))
-      return recover(hashedMsg, res.v, res.r, res.s)
-    }).then((publicKey) => {
-      console.log('publicKey', publicKey.toString('hex'))
-      const originalKey = privateToPublic(Buffer.from('65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d', 'hex')).toString('hex')
-      console.log('originalkey', originalKey)
-      if (publicKey.toString('hex') === originalKey) {
-        console.log('boom! ecrecover works')
-      } else {
-        console.log('public keys did not match')
-      }
+    //   return recover(Buffer.from(hashedMsg, 'hex'), res.v, res.r, res.s)
+    // }).then((publicKey) => {
+    //   const originalKey = privateToPublic(Buffer.from('65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d', 'hex')).toString('hex')
+    //   if (publicKey.toString('hex') === originalKey) {
+    //     console.log('boom! ecrecover works')
+    //   } else {
+    //     console.log('public keys did not match')
+    //   }
       resolve(true)
     }).catch((err) => {
       reject(err)
@@ -33,13 +33,19 @@ function signTest(obj) {
 
 function hashMessage(msg) {
   return new Promise((resolve, reject) => {
-    resolve(hashPersonalMessage(Buffer.from(msg, 'hex')))
+    resolve(sha3(msg))
+    // resolve(hashPersonalMessage(Buffer.from(msg, 'hex')))
   })
 }
 
 function signOrder(hash, pk) {
   return new Promise((resolve, reject) => {
-    resolve(ecsign(Buffer.from(hash, 'hex'), Buffer.from(pk, 'hex')))
+    console.log(hash.substring(2))
+    console.log('hash string', typeof hash, hash)
+    console.log('hash', Buffer.from(hash, 'hex'))
+    console.log('pk string', typeof pk, pk)
+    console.log('pk', Buffer.from(pk, 'hex'))
+    resolve(ecsign(Buffer.from(hash.substring(2), 'hex'), Buffer.from(pk, 'hex')))
   })
 }
 
