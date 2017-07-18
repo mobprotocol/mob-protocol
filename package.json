@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "ethereumjs-util": "^5.1.2",
-    "solidity-sha3": "^0.4.1"
+    "solidity-sha3": "^0.4.1",
+    "web3": "^0.20.1"
   }
 }
