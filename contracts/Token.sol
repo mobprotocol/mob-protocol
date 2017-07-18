@@ -19,7 +19,7 @@ contract Asset {
     }
 
     function transfer( address to, uint value ) returns (bool) {
-        if ( balances[msg.sender] < value) { throw; }
+        require(balances[msg.sender] >= value);
         balances[msg.sender] -= value;
         balances[to] += value;
         Transfer( msg.sender, to, value );
@@ -27,7 +27,7 @@ contract Asset {
     }
 
     function approve( address spender, uint value ) returns (bool) {
-        if ( balances[msg.sender] < value ) { throw; }
+        require(balances[msg.sender] >= value)
         approvals[msg.sender][spender] = value;
         Approval( msg.sender, spender, value );
         return true;
