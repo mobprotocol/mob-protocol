@@ -1,6 +1,7 @@
 pragma solidity ^0.4.11;
+import 'SafeMath.sol'
 
-contract Settlement {
+contract Settlement is SafeMath {
   address public permutationID;
   address public tokenA;
   address public tokenB;
@@ -49,9 +50,14 @@ contract Settlement {
 
   }
 
-  function verifyOrder(bytes32[2] sig, uint8 v, ) {
+  function verifyOrder() {
 
   }
+
+  function inMarket(uint priceA, uint priceB) {
+
+  }
+
 
   function getSender() returns (address) {
       return msg.sender;
