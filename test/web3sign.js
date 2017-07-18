@@ -17,9 +17,12 @@ function hashData() {
   })
 }
 
-function signature() {
+function signature(address, msg) {
   return new Promise((resolve, reject) => {
-
+    return web3.eth.sign(address, msg, (err, res) => {
+      if (err) { reject(err) }
+      resolve(res)
+    })
   })
 }
 
@@ -32,8 +35,10 @@ function test() {
       address = res
       return hashData()
     }).then((res) => {
-      console.log('res', res)
       hashedData = res
+      return signature(address, hashedData)
+    }).then((res) => {
+      console.log(res)
     })
   })
 }
