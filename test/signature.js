@@ -6,15 +6,18 @@ const { ecsign, hashPersonalMessage, ecrecover, privateToPublic } = eth
 function signTest(obj) {
   return new Promise((resolve, reject) => {
     let hashedMsg
-    return hashMessage(JSON.stringify(obj))
+    return hashMessage(obj)
     .then((hash) => {
       hashedMessage =  Buffer.from(hash.substring(2), 'hex')
+      console.log('hash', hash)
       return signOrder(hash, '65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d')
     }).then((res) => {
       console.log('res', res)
+      console.log('v', res.v)
+      console.log('r', res.r.toString('hex'))
+      console.log('s', res.s.toString('hex'))
       return recover(hashedMessage, res.v, res.r, res.s)
     }).then((publicKey) => {
-      console.log('publicKey', publicKey)
       const originalKey = privateToPublic(Buffer.from('65de830423de93cba6f05c4e819f757434d8c6228b4498f5c34cafac6bcd0c3d', 'hex')).toString('hex')
       if (publicKey.toString('hex') === originalKey) {
         console.log('boom! ecrecover works')
@@ -56,4 +59,14 @@ const order = {
   permutation: ''
 }
 
-signTest(order)
+signTest('hello world')
+
+
+/**
+For solidity ecrecover
+
+bytes 32 hashed message
+uint8 v
+bytes32 r
+bytes32 s
+*/
