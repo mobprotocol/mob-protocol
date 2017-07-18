@@ -4,7 +4,8 @@
   "description": "Mob contract interface standard",
   "main": "index.js",
   "scripts": {
-    "signature-test": "node ./test/signature.js"
+    "signature-test": "node ./test/signature.js",
+    "web3-sign": "node ./test/web3sign.js"
   },
   "keywords": [
     "exchange",
@@ -18,6 +19,7 @@
   "dependencies": {
     "ethereumjs-util": "^5.1.2",
     "solidity-sha3": "^0.4.1",
+    "truffle": "^3.4.5",
     "web3": "^0.20.1"
   }
 }
