@@ -22,7 +22,7 @@ contract Settlement is SafeMath {
     return true;
   }
 
-  function matchOrder(bytes32 order, uint8 v, bytes32 r, bytes32 s) returns (bool) {
+  function matchOrder(bytes32[3] sig1, bytes32[3] sig2, bytes32 permutation, address sellToken1, address sellToken2) returns (bool) {
     // verify order
 
     // verify orders are in the market
@@ -40,15 +40,11 @@ contract Settlement is SafeMath {
     bytes memory prefix = "\x19Ethereum Signed Message:\n32";
     bytes32 msg = sha3(prefix, permutation, sellToken, amount, price);
     address seller1 = ecrecover(msg, v, r, s);
+    return true;
   }
 
-  function priceInMarket(uint price1, uint price2) returns (uint) {
-    uint memory invertedPrice = 1/price2;
-    return invertedPrice;
-  }
-
-  function getSender() returns (address) {
-      return msg.sender;
+  function priceInMarket(uint price1, uint price2) returns (bool) {
+    return true;
   }
 }
 /**
