@@ -5,14 +5,12 @@ const { sha3 } = ethUtil
 
 function calculatePermutationID(addressA, addressB) {
   const ordering = addressA.localeCompare(addressB)
-  console.log('ordering', ordering)
   let concated
   if(ordering == 0) {
     concated = `${addressA}${addressB}`
   } else {
     concated = `${addressB}${addressA}`
   }
-  console.log('concated', concated)
   return '0x' + sha3(concated).toString('hex')
 }
 
@@ -33,5 +31,6 @@ module.exports = (deployer) => {
   ]
 
   const permutationID = calculatePermutationID(tokens[0].address, tokens[1].address)
-  console.log('permutationID', permutationID)
+
+  Settlement.new(permutationID, tokens[0].address, tokens[1].address)
 }
