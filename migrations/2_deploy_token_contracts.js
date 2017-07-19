@@ -22,6 +22,7 @@ module.exports = function(deployer) {
 
   deployer.deploy(SafeMath)
   deployer.deploy(Token)
+
   tokens.forEach((token) => {
     console.log('token', token)
     Token.new(token.name, token.ticker, token.supply)
