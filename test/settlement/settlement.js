@@ -4,7 +4,7 @@
 
 const Settlement = artifacts.require("Settlement")
 
-const { generateSignature, claculatePermutationID } = require('./utils.js')
+const { generateSignature, calculatePermutationID } = require('./utils.js')
 
 contract('Settlement' , (accounts) => {
   // it("Should return false given a public address and the wrong vrs signature", () => {

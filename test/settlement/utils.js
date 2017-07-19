@@ -36,5 +36,5 @@ function calculatePermutationID(addressA, addressB) {
 
 module.exports = {
   generateSignature,
-
+  calculatePermutationID
 }
