@@ -21,15 +21,17 @@ module.exports = (deployer) => {
     {
       name: 'Mob',
       ticker: 'MOB',
-      supply: 1000000000
+      supply: 1000000000,
+      address: '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
     },
     {
       name: 'Basic Attention Token',
       ticker: 'BAT',
-      supply: 1000000000
+      supply: 1000000000,
+      address: '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
     }
   ]
 
-  const permutationID = calculatePermutationID()
+  const permutationID = calculatePermutationID(tokens[0].address, tokens[1].address)
   console.log('permutationID', permutationID)
 }
