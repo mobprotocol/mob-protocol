@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 contract Settlement {
-  address public permutationID;
+  bytes32 public permutationID;
   address public tokenA;
   address public tokenB;
 
