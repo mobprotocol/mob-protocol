@@ -9,7 +9,7 @@ contract Settlement {
 
   event orderBroadcast(address sender, bytes32 order, uint amount, bytes32 price);
 
-  function Settlement(address _permutationID, address _tokenA, address _tokenB) {
+  function Settlement(bytes32 _permutationID, address _tokenA, address _tokenB) {
     permutationID = _permutationID;
     tokenA = _tokenA;
     tokenB = _tokenB;
