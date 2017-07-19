@@ -13,7 +13,7 @@ function calculatePermutationID(addressA, addressB) {
     concated = `${addressB}${addressA}`
   }
   console.log('concated', concated)
-  return '0x' + sha3(concated)
+  return '0x' + sha3(concated).toString('hex')
 }
 
 module.exports = (deployer) => {
