@@ -38,23 +38,11 @@ function calculatePermutationID(addressA, addressB) {
   return '0x' + sha3(concated).toString('hex')
 }
 
-function hashOrder(obj) {
-  return new Promise((resolve, reject) => {
-    let params = []
-    Object.keys(obj).map((param) => {
-      params.push[obj[param]]
-    })
-    resolve('0x' + sha3(params).toString('hex'))
-  })
-}
-
 function hashOrder(order) {
-  abi.solidity(
+  return abi.soliditySHA3(
     ['address', 'address', 'bytes32', 'uint', 'uint'],
     [ new BN(order.seller), new BN(order.token), new BN(order.permutationID), order.quantity, order.price]
   ).toString('hex')
-
-
 }
 
 module.exports = {

@@ -61,7 +61,7 @@ contract('Settlement' , (accounts) => {
     const order = {
       seller: accounts[0],
       token: addressA,
-      permutationId,
+      permutationID,
       quantity: 10,
       price: 10,
     }
