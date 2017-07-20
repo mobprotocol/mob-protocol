@@ -18,6 +18,8 @@
   "author": "Sean Pollock",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.1.0",
+    "ethereumjs-abi": "^0.6.4",
     "ethereumjs-util": "^5.1.2",
     "solidity-sha3": "^0.4.1",
     "web3": "^0.20.1"
