@@ -4,7 +4,7 @@
 
 const Settlement = artifacts.require("Settlement")
 
-const { generateSignature, calculatePermutationID } = require('./utils.js')
+const { generateSignature, calculatePermutationID, hashOrder } = require('./utils.js')
 
 contract('Settlement' , (accounts) => {
   it("Should deploy contract and define global permutation id", () => {
@@ -19,7 +19,7 @@ contract('Settlement' , (accounts) => {
     })
   })
 
-  it("Should return false given a vrs signature from another public address than the seller", () => {
+  it("Signature verifiaction should return false given a vrs signature from another public address than the seller", () => {
     let instance
     let signature
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
@@ -36,7 +36,7 @@ contract('Settlement' , (accounts) => {
     })
   })
 
-  it("Should return true given vrs signature and address of signer", () => {
+  it("Signature verifiaction should return true given vrs signature and address of signer", () => {
     let instance
     let signature
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
@@ -51,5 +51,25 @@ contract('Settlement' , (accounts) => {
     }).then((bool) => {
       assert.equal(bool, true)
     })
+  })
+
+  it("Order verification should return the same bytes32 hash given correct params", () => {
+    let instance
+    const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
+    const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
+    const permutationID = calculatePermutationID(addressA, addressB)
+    const order = {
+      seller: accounts[0],
+      token: addressA,
+      permutationId,
+      quantity: 10,
+      price: 10,
+    }
+    const orderHash = hashOrder(order)
+    console.log('orderHash', orderHash)
+    // Settlement.new(permutationID, addressA, addressB)
+    // .then((inst) => {
+    //   instance = instance
+    // })
   })
 })
