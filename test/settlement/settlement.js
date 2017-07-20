@@ -30,8 +30,10 @@ contract('Settlement' , (accounts) => {
       instance = inst
       console.log('accounts[0]', accounts[0])
       return generateSignature(accounts[0], "hello world")
-    }).then((signature) => {
-      console.log('signature', signature)
+    }).then((params) => {
+      return instance.verifySignature.call(params[0], params[1], params[2], params[3], accounts[1])
+    }).then((bool) => {
+      assert.equal(bool, false)
     })
   })
 })
