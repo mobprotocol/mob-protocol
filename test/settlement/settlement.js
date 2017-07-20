@@ -67,9 +67,15 @@ contract('Settlement' , (accounts) => {
     }
     const orderHash = hashOrder(order)
     console.log('orderHash', orderHash)
-    // Settlement.new(permutationID, addressA, addressB)
-    // .then((inst) => {
-    //   instance = instance
-    // })
+    Settlement.new(permutationID, addressA, addressB)
+    .then((inst) => {
+      instance = instance
+      return instance.getMsgHash(order.seller, address.token, address.permutationID, order.quantity, order.price)
+    }).then((solidityHash) => {
+      assert.equal(orderHash, solidityHash)
   })
 })
+
+function getMsgHash(address seller, address token, uint quantity, uint price) returns (bytes32){
+  return sha3(seller, token, permutationID, quantity, price);
+}
