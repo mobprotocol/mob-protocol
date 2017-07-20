@@ -7,9 +7,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 function generateSignature(publicAddress, msg) {
   return new Promise(async (resolve, reject) => {
     const hashedMsg = sha3(msg)
-    console.log('hashedMsg', hashedMsg)
-    // const signature = await signOrder(address, hash)
-
+    const signature = await signOrder(publicAddress, hashedMsg.toString('hex'))
     resolve(hashedMsg)
   })
 }
@@ -18,6 +16,7 @@ async function signOrder(address, hash) {
   return new Promise((resolve, reject) => {
     web3.eth.sign(address, hash, (err, res) => {
       if (err) { reject(err) }
+      console.log('res', res)
       resolve(res)
     })
   })
