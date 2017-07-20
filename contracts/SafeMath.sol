@@ -1,6 +1,6 @@
 pragma solidity ^0.4.10;
 
-contract DSMath {
+contract SafeMath {
     function add(uint256 x, uint256 y) constant internal returns (uint256 z) {
         assert((z = x + y) >= x);
     }
