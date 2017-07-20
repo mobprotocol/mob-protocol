@@ -54,7 +54,6 @@ contract('Settlement' , (accounts) => {
   })
 
   it("Order verification should return the same bytes32 hash given correct params", () => {
-    let instance
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
     const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
     const permutationID = calculatePermutationID(addressA, addressB)
@@ -69,13 +68,10 @@ contract('Settlement' , (accounts) => {
     console.log('orderHash', orderHash)
     Settlement.new(permutationID, addressA, addressB)
     .then((inst) => {
-      instance = instance
-      return instance.getMsgHash(order.seller, address.token, address.permutationID, order.quantity, order.price)
+      return inst.getMsgHash(order.seller, order.token, order.permutationID, order.quantity, order.price)
     }).then((solidityHash) => {
+      console.log('solidityHash', solidityHash)
       assert.equal(orderHash, solidityHash)
+    })
   })
 })
-
-function getMsgHash(address seller, address token, uint quantity, uint price) returns (bytes32){
-  return sha3(seller, token, permutationID, quantity, price);
-}
