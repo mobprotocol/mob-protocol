@@ -68,7 +68,7 @@ contract('Settlement' , (accounts) => {
     console.log('orderHash', orderHash)
     Settlement.new(permutationID, addressA, addressB)
     .then((inst) => {
-      return inst.getMsgHash(order.seller, order.token, order.permutationID, order.quantity, order.price)
+      return inst.getMsgHash.call(order.seller, order.token, order.permutationID, order.quantity, order.price)
     }).then((solidityHash) => {
       console.log('solidityHash', solidityHash)
       assert.equal(orderHash, solidityHash)
