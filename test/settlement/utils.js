@@ -6,11 +6,11 @@ const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 function generateSignature(publicAddress, msg) {
   return new Promise(async (resolve, reject) => {
-    const hashedMsg = sha3(msg)
-    const signature = await signOrder(publicAddress, hashedMsg.toString('hex'))
-    const r = '0x' + signature.substring(2, 64)
-    const s = '0x' + signature.substring(66, 64)
-    const v = 27 + Number(signature.substring(130, 2))
+    const hashedMsg = '0x' + sha3(msg).toString('hex')
+    const signature = await signOrder(publicAddress, hashedMsg)
+    let r = "0x"+signature.substr(2, 64)
+    let s = "0x"+signature.substr(66, 64)
+    let v = 27 + Number(signature.substr(130, 2));
     resolve([hashedMsg, v, r, s])
   })
 }
