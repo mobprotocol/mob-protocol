@@ -21,6 +21,10 @@ contract Settlement {
     return true;
   }
 
+  function getMsgHash(address seller, address token, uint quantity, uint price) {
+    return sha3(seller, token, order, quantity);
+  }
+
   function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (bool) {
     bytes memory prefix = "\x19Ethereum Signed Message:\n32";
     bytes32 msgHash = sha3(prefix, msg);
