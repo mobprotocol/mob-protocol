@@ -39,7 +39,7 @@ function calculatePermutationID(addressA, addressB) {
 }
 
 function hashOrder(order) {
-  return abi.soliditySHA3(
+  return '0x' + abi.soliditySHA3(
     ['address', 'address', 'bytes32', 'uint', 'uint'],
     [ new BN(order.seller), new BN(order.token), new BN(order.permutationID), order.quantity, order.price]
   ).toString('hex')
