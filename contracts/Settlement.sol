@@ -21,10 +21,14 @@ contract Settlement {
     return true;
   }
 
-  function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (address) {
+  function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (bool) {
     bytes memory prefix = "\x19Ethereum Signed Message:\n32";
     bytes32 msgHash = sha3(prefix, msg);
     address signer = ecrecover(msgHash, v, r, s);
-    return signer;
+    if (signer == seller) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
