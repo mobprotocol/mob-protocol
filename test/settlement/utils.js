@@ -8,7 +8,10 @@ function generateSignature(publicAddress, msg) {
   return new Promise(async (resolve, reject) => {
     const hashedMsg = sha3(msg)
     const signature = await signOrder(publicAddress, hashedMsg.toString('hex'))
-    resolve(hashedMsg)
+    const r = '0x' + signature.substring(2, 64)
+    const s = '0x' + signature.substring(66, 64)
+    const v = 27 + Number(signature.substring(130, 2))
+    resolve([hashedMsg, v, r, s])
   })
 }
 
@@ -16,7 +19,6 @@ async function signOrder(address, hash) {
   return new Promise((resolve, reject) => {
     web3.eth.sign(address, hash, (err, res) => {
       if (err) { reject(err) }
-      console.log('res', res)
       resolve(res)
     })
   })

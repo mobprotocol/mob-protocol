@@ -19,7 +19,7 @@ contract('Settlement' , (accounts) => {
     })
   })
 
-  it("Should return false given a public address and the wrong vrs signature", () => {
+  it("Should return false given a vrs signature from another public address than the seller", () => {
     let instance
     let signature
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
