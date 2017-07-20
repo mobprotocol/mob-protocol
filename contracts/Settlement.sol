@@ -21,8 +21,8 @@ contract Settlement {
     return true;
   }
 
-  function getMsgHash(address seller, address token, uint quantity, uint price) {
-    return sha3(seller, token, order, quantity);
+  function getMsgHash(address seller, address token, uint quantity, uint price) returns (bytes32){
+    return sha3(seller, token, permutationID, quantity, price);
   }
 
   function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (bool) {
