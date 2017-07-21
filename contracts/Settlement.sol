@@ -21,22 +21,17 @@ contract Settlement {
     return true;
   }
 
-  function match(
-    bytes32 orderHash1,
-    address seller1,
-    address token1,
-    uint quantity1,
-    uint price1,
-    uint8 v,
-    bytes32 r,
-    bytes32 s
-    ) returns (bool) {
-      bytes32 memory msgHash = getMsgHash(seller1, token1, quantity1, price1);
-      require(orderHash1 == msgHash);
-  }
-
   function getMsgHash(address seller, address token, uint quantity, uint price) returns (bytes32) {
     return sha3(seller, token, quantity, price);
+  }
+
+  function verifyOrder(address seller, address token, uint quantity, uint price, bytes32 orderHash) returns (bool) {
+    bytes32 msgHash = sha3(seller, token, quantity, price);
+    if (orderHash == msgHash) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (bool) {
@@ -48,5 +43,10 @@ contract Settlement {
     } else {
       return false;
     }
+  }
+
+  function atomicMatch(bytes32 orderHash1, address seller1, address token1, uint quantity1, uint price1) returns (bool) {
+      require(verifyOrder(seller1, token1, quantity1, price1, orderHash1));
+      return true;
   }
 }
