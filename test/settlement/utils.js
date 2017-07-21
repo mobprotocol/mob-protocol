@@ -7,10 +7,9 @@ const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 const abi = require('ethereumjs-abi')
 const BN = require('bn.js')
 
-function generateSignature(publicAddress, msg) {
+function generateSignature(publicAddress, msgHash) {
   return new Promise(async (resolve, reject) => {
-    const hashedMsg = '0x' + sha3(msg).toString('hex')
-    const signature = await signOrder(publicAddress, hashedMsg)
+    const signature = await signOrder(publicAddress, msgHash)
     let r = "0x"+signature.substr(2, 64)
     let s = "0x"+signature.substr(66, 64)
     let v = 27 + Number(signature.substr(130, 2));
@@ -40,8 +39,16 @@ function calculatePermutationID(addressA, addressB) {
 
 function hashOrder(order) {
   return '0x' + abi.soliditySHA3(
-    ['address', 'address', 'bytes32', 'uint', 'uint'],
-    [ new BN(order.seller), new BN(order.token), new BN(order.permutationID), order.quantity, order.price]
+    [
+      'address', 'address', 'uint', 'uint',
+    ],
+    [
+      new BN(order.seller.substr(2, order.seller.length), 16),
+      new BN(order.token.substr(2, order.token.length), 16),
+      10,
+      10
+      // new Buffer(order.permutationID.substring(2, order.permutationID.length), 'hex')
+    ]
   ).toString('hex')
 }
 
