@@ -13,7 +13,7 @@ function generateSignature(publicAddress, msgHash) {
     let r = "0x"+signature.substr(2, 64)
     let s = "0x"+signature.substr(66, 64)
     let v = 27 + Number(signature.substr(130, 2));
-    resolve([hashedMsg, v, r, s])
+    resolve([v, r, s])
   })
 }
 
@@ -38,6 +38,8 @@ function calculatePermutationID(addressA, addressB) {
 }
 
 function hashOrder(order) {
+  console.log('order.seller', order.seller)
+  console.log('order', order)
   return '0x' + abi.soliditySHA3(
     [
       'address', 'address', 'uint', 'uint',
