@@ -93,14 +93,17 @@ contract('Settlement' , (accounts) => {
       instance = inst
       return inst.permutationID.call()
     }).then((perm) => {
-      return instance.getMsgHash.call(order.seller, order.token, order.quantity, order.price)
-    }).then((solidityHash) => {
-      assert.equal(orderHash, solidityHash)
+      return instance.verifyOrder.call(order.seller, order.token, order.quantity, order.price, orderHash)
+    }).then((bool) => {
+      assert.equal(bool, true)
     })
   })
 
+
+  //
   // it("Match function should throw given incorrect order params", () => {
   //   let instance
+  //   let msgHash
   //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
   //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
   //   const permutationID = calculatePermutationID(addressA, addressB)
@@ -115,6 +118,9 @@ contract('Settlement' , (accounts) => {
   //   Settlement.new(permutationID, addressA, addressB)
   //   .then((inst) => {
   //     instance = inst
+  //     return hashOrder(order)
+  //   }).then((hash) => {
+  //     msgHash = hash
   //     return generateSignature(accounts[], orderHash)
   //   }).then((signature) => {
   //
