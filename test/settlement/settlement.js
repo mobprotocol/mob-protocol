@@ -74,30 +74,30 @@ contract('Settlement' , (accounts) => {
       assert.equal(bool, true)
     })
   })
-  //
-  // it("Order verification should return the same bytes32 hash given correct params", () => {
-  //   let instance
-  //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
-  //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
-  //   const permutationID = calculatePermutationID(addressA, addressB)
-  //   const order = {
-  //     seller: accounts[0],
-  //     token: addressA,
-  //     quantity: 10,
-  //     price: 10,
-  //     permutationID: permutationID,
-  //   }
-  //   const orderHash = hashOrder(order)
-  //   Settlement.new(permutationID, addressA, addressB)
-  //   .then((inst) => {
-  //     instance = inst
-  //     return inst.permutationID.call()
-  //   }).then((perm) => {
-  //     return instance.getMsgHash.call(order.seller, order.token, order.quantity, order.price)
-  //   }).then((solidityHash) => {
-  //     assert.equal(orderHash, solidityHash)
-  //   })
-  // })
+
+  it("Order verification should return the same bytes32 hash given correct params", () => {
+    let instance
+    const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
+    const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
+    const permutationID = calculatePermutationID(addressA, addressB)
+    const order = {
+      seller: accounts[0],
+      token: addressA,
+      quantity: 10,
+      price: 10,
+      permutationID: permutationID,
+    }
+    const orderHash = hashOrder(order)
+    Settlement.new(permutationID, addressA, addressB)
+    .then((inst) => {
+      instance = inst
+      return inst.permutationID.call()
+    }).then((perm) => {
+      return instance.getMsgHash.call(order.seller, order.token, order.quantity, order.price)
+    }).then((solidityHash) => {
+      assert.equal(orderHash, solidityHash)
+    })
+  })
 
   // it("Match function should throw given incorrect order params", () => {
   //   let instance

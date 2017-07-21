@@ -38,8 +38,6 @@ function calculatePermutationID(addressA, addressB) {
 }
 
 function hashOrder(order) {
-  console.log('order.seller', order.seller)
-  console.log('order', order)
   return '0x' + abi.soliditySHA3(
     [
       'address', 'address', 'uint', 'uint',
