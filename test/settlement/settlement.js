@@ -117,9 +117,21 @@ contract('Settlement' , (accounts) => {
     }).then((res) => {
       return settlementContract.verifyAllowance.call(tokenContract.address, accounts[0], 500)
     }).then((res) => {
-      console.log('res', res)
+      assert.equal(res, true)
     })
   })
+
+  // it('Should verify orders are in the market', () => {
+  //   let settlementContract
+  //   let tokenContract
+  //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
+  //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
+  //   const permutationID = calculatePermutationID(addressA, addressB)
+  //   Settlement.new(permutationID, addressA, addressB)
+  //   .then((inst) => {
+  //     return inst.verify
+  //   })
+  // })
 
   //
   // it("Match function should throw given incorrect order params", () => {
