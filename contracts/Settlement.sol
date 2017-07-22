@@ -1,5 +1,7 @@
 pragma solidity ^0.4.11;
 
+import "./Token.sol";
+
 contract Settlement {
   bytes32 public permutationID;
   address public tokenA;
@@ -45,8 +47,30 @@ contract Settlement {
     }
   }
 
-  function atomicMatch(bytes32 orderHash1, address seller1, address token1, uint quantity1, uint price1) returns (bool) {
-      require(verifyOrder(seller1, token1, quantity1, price1, orderHash1));
+  function verifyApproval(address token, address seller, uint quantity) returns (bool) {
+    Token t = Token(token);
+    uint approval = t.allowance(seller, this);
+    if (approval >= quantity) {
       return true;
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  function atomicMatch(
+    bytes32 orderHash1,
+    address seller1,
+    address token1,
+    uint quantity1,
+    uint price1,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+  ) returns (bool) {
+    require(verifyOrder(seller1, token1, quantity1, price1, orderHash1));
+    require(verifySignature(orderHash1, v, r, s, seller1));
+    require(verifyApproval(token1, seller1, quantity1));
+    return true;
   }
 }
