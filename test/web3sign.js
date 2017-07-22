@@ -36,9 +36,16 @@ function test() {
       return hashData()
     }).then((res) => {
       hashedData = res
+      console.log('hash', res)
       return signature(address, hashedData)
     }).then((res) => {
       console.log(res)
+      let r = "0x"+res.substring(2, 64)
+      let s = "0x"+res.substr(66, 64)
+      let v = 27 + Number(res.substr(130, 2));
+      console.log('v', v)
+      console.log('r', r)
+      console.log('s', s)
     })
   })
 }
