@@ -26,6 +26,17 @@ contract Token {
         return true;
     }
 
+    function transferFrom(address from, address to, uint value) returns (bool) {
+      require(balances[from] >= value);
+      require(approvals[from][msg.sender] >= value);
+
+      approvals[from][msg.sender] -= value;
+      balances[from] -= value;
+      balances[to] += value;
+      Transfer(from, to, value);
+      return true;
+    }
+
     function approve( address spender, uint value ) returns (bool) {
         require(balances[msg.sender] >= value);
         approvals[msg.sender][spender] = value;
