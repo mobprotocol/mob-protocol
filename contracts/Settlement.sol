@@ -47,7 +47,7 @@ contract Settlement {
     }
   }
 
-  function verifyApproval(address token, address seller, uint quantity) returns (bool) {
+  function verifyAllowance(address token, address seller, uint quantity) returns (bool) {
     Token t = Token(token);
     uint approval = t.allowance(seller, this);
     if (approval >= quantity) {
@@ -55,7 +55,6 @@ contract Settlement {
     } else {
       return false;
     }
-    return true;
   }
 
   function atomicMatch(
@@ -64,13 +63,20 @@ contract Settlement {
     address token1,
     uint quantity1,
     uint price1,
-    uint8 v,
-    bytes32 r,
-    bytes32 s
+    uint8 v1,
+    bytes32 r1,
+    bytes32 s1,
+    address seller2,
+    uint send1,
+    uint send2
   ) returns (bool) {
     require(verifyOrder(seller1, token1, quantity1, price1, orderHash1));
-    require(verifySignature(orderHash1, v, r, s, seller1));
-    require(verifyApproval(token1, seller1, quantity1));
+    require(verifySignature(orderHash1, v1, r1, s1, seller1));
+    require(verifyAllowance(token1, seller1, quantity1));
+    require(send1 <= quantity1);
+
+    Token t1 = Token(token1);
+    t1.transferFrom(seller1, seller2, send1);
     return true;
   }
 }
