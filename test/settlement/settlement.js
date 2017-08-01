@@ -144,26 +144,18 @@ contract('Settlement' , (accounts) => {
       tokenContract = inst
       return inst.approve(settlementContract.address, 500)
     }).then((res) => {
+      console.log('res from approve call', res)
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature = sig
       return settlementContract.atomicMatch(
         [orderHash, sig[1], sig[2]],
         [order.quantity, order.price, sig[0]],
-        [accounts[0], order.token, accounts[1]]
-        // orderHash,
-        // order.seller,
-        // order.token,
-        // order.quantity,
-        // order.price,
-        // sig[0],
-        // sig[1],
-        // sig[2],
-        // accounts[2],
-        // order.quantity
+        [accounts[0], tokenContract.address, accounts[1]]
       )
     }).then((res) => {
       console.log('res', res)
+      assert.equal(res, true)
     })
   })
 
