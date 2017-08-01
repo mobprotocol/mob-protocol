@@ -66,5 +66,5 @@ module.exports = {
   generateSignature,
   calculatePermutationID,
   hashOrder,
-  dalay
+  delay,
 }

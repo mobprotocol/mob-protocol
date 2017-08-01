@@ -5,12 +5,7 @@
 const Settlement = artifacts.require("Settlement")
 const Token = artifacts.require("Token")
 
-const {
-  delay,
-  generateSignature,
-  calculatePermutationID,
-  hashOrder
-} = require('./utils.js')
+const { delay, generateSignature, calculatePermutationID, hashOrder } = require('./utils.js')
 
 contract('Settlement' , (accounts) => {
   it("Should deploy contract and define global permutation id", () => {
