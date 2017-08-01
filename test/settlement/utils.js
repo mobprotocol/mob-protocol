@@ -52,6 +52,16 @@ function hashOrder(order) {
   ).toString('hex')
 }
 
+function delay(t) {
+  return new Promise((resolve) => {
+    if (t <= 0) {
+      resolve(true)
+    } else {
+      setTimeout(resolve(true), t)
+    }
+  })
+}
+
 module.exports = {
   generateSignature,
   calculatePermutationID,
