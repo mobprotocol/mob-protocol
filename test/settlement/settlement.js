@@ -148,13 +148,13 @@ contract('Settlement' , (accounts) => {
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature = sig
-      return delay(5000)
+      return delay(3000)
     }).then(() => {
-      return Promise.all([delay(50), settlementContract.atomicMatch(
+      return  settlementContract.atomicMatch(
         [orderHash, signature[1], signature[2]],
         [order.quantity, order.price, signature[0]],
         [accounts[0], tokenContract.address, accounts[1]]
-      )]);
+      )
     }).then((res) => {
       console.log('res from atomic swap', res)
       assert.equal(res, true)

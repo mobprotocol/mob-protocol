@@ -55,9 +55,10 @@ function hashOrder(order) {
 function delay(t) {
   return new Promise((resolve) => {
     if (t <= 0) {
+      console.log('here here')
       resolve(true)
     } else {
-      setTimeout(resolve(true), t)
+      setTimeout(resolve, t)
     }
   })
 }
