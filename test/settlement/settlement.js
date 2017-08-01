@@ -117,11 +117,12 @@ contract('Settlement' , (accounts) => {
     }).then((res) => {
       return settlementContract.verifyAllowance.call(tokenContract.address, accounts[0], 500)
     }).then((res) => {
+      console.log('res from verify', res)
       assert.equal(res, true)
     })
   })
 
-  it('Should transfer tokens given corrent order and signature', () => {
+  it('Should pass verifaction given correct order and signature', () => {
     let settlementContract
     let tokenContract
     let signature
@@ -144,20 +145,58 @@ contract('Settlement' , (accounts) => {
       tokenContract = inst
       return inst.approve(settlementContract.address, 500)
     }).then((res) => {
-      console.log('res from approve call', res)
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature = sig
-      return settlementContract.atomicMatch(
-        [orderHash, sig[1], sig[2]],
-        [order.quantity, order.price, sig[0]],
-        [accounts[0], tokenContract.address, accounts[1]]
-      )
+      setTimeout(() => {
+        return settlementContract.atomicMatch(
+          [orderHash, sig[1], sig[2]],
+          [order.quantity, order.price, sig[0]],
+          [accounts[0], tokenContract.address, accounts[1]]
+        )
+      }, 5000)
     }).then((res) => {
-      console.log('res', res)
       assert.equal(res, true)
     })
   })
+
+  // it('Shoud verify transfer occured', () => {
+  //   let settlementContract
+  //   let tokenContract
+  //   let signature
+  //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
+  //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
+  //   const permutationID = calculatePermutationID(addressA, addressB)
+  //   const order = {
+  //     seller: accounts[0],
+  //     token: addressA,
+  //     quantity: 10,
+  //     price: 10,
+  //     permutationID: permutationID,
+  //   }
+  //   const orderHash = hashOrder(order)
+  //   Settlement.new(permutationID, addressA, addressB)
+  //   .then((inst) => {
+  //     settlementContract = inst
+  //     return Token.new('Mob', 'MOB', 1000)
+  //   }).then((inst) => {
+  //     tokenContract = inst
+  //     return inst.approve(settlementContract.address, 500)
+  //   }).then((res) => {
+  //     console.log('res from approve call', res)
+  //     return generateSignature(accounts[0], orderHash)
+  //   }).then((sig) => {
+  //     signature = sig
+  //     return settlementContract.atomicMatch(
+  //       [orderHash, sig[1], sig[2]],
+  //       [order.quantity, order.price, sig[0]],
+  //       [accounts[0], tokenContract.address, accounts[1]]
+  //     )
+  //   }).then((res) => {
+  //     console.log('res', res)
+  //     assert.equal(res, true)
+  //   })
+  // })
 
   // it('Should verify orders are in the market', () => {
   //   let settlementContract
