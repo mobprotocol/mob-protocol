@@ -5,7 +5,12 @@
 const Settlement = artifacts.require("Settlement")
 const Token = artifacts.require("Token")
 
-const { generateSignature, calculatePermutationID, hashOrder } = require('./utils.js')
+const {
+  delay,
+  generateSignature,
+  calculatePermutationID,
+  hashOrder
+} = require('./utils.js')
 
 contract('Settlement' , (accounts) => {
   it("Should deploy contract and define global permutation id", () => {
@@ -148,9 +153,11 @@ contract('Settlement' , (accounts) => {
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature = sig
+      return delay(5000)
+    }).then(() => {
       return Promise.all([delay(50), settlementContract.atomicMatch(
-        [orderHash, sig[1], sig[2]],
-        [order.quantity, order.price, sig[0]],
+        [orderHash, signature[1], signature[2]],
+        [order.quantity, order.price, signature[0]],
         [accounts[0], tokenContract.address, accounts[1]]
       )]);
     }).then((res) => {

@@ -65,5 +65,6 @@ function delay(t) {
 module.exports = {
   generateSignature,
   calculatePermutationID,
-  hashOrder
+  hashOrder,
+  dalay
 }
