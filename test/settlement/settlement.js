@@ -121,6 +121,30 @@ contract('Settlement' , (accounts) => {
     })
   })
 
+  it('should verify allowance is still active', () => {
+    let tokenContract
+    let settlementContract
+    const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
+    const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
+    const permutationID = calculatePermutationID(addressA, addressB)
+    Settlement.new(permutationID, addressA, addressB)
+    .then((inst) => {
+      settlementContract = inst
+      return Token.new('Mob', 'MOB', 1000)
+    }).then((inst) => {
+      tokenContract = inst
+      return tokenContract.approve(settlementContract.address, 500)
+    }).then((res) => {
+      console.log('res from token approval', res)
+      return settlementContract.verifyAllowance(tokenContract.address, accounts[0], 500)
+    }).then((res) => {
+      console.log('res from verifyAllowance', res)
+
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+
   it('Should transfer tokens given corrent order and signature', () => {
     let settlementContract
     let tokenContract
