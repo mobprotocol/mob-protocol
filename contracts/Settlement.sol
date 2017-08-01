@@ -58,12 +58,12 @@ contract Settlement {
   }
 
   function atomicMatch(
-    bytes32[2] order_bytes,
-    uint[2] order_ints,
-    address[2] order_addresses
+    bytes32[3] order_bytes,
+    uint[3] order_ints,
+    address[3] order_addresses
   ) returns (bool) {
     require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
-    require(verifySignature(order_bytes[0], order_ints[2], order_bytes[1], order_bytes[2], order_addresses[0]));
+    require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));
     require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
     Token t1 = Token(order_addresses[1]);
