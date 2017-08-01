@@ -58,25 +58,17 @@ contract Settlement {
   }
 
   function atomicMatch(
-    bytes32 orderHash1,
-    address seller1,
-    address token1,
-    uint quantity1,
-    uint price1,
-    uint8 v1,
-    bytes32 r1,
-    bytes32 s1,
-    address seller2,
-    uint send1,
-    uint send2
+    bytes32[2] order_bytes,
+    uint[2] order_ints,
+    address[2] order_addresses
   ) returns (bool) {
-    require(verifyOrder(seller1, token1, quantity1, price1, orderHash1));
-    require(verifySignature(orderHash1, v1, r1, s1, seller1));
-    require(verifyAllowance(token1, seller1, quantity1));
-    require(send1 <= quantity1);
+    require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
+    require(verifySignature(order_bytes[0], order_ints[2], order_bytes[1], order_bytes[2], order_addresses[0]));
+    require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
-    Token t1 = Token(token1);
-    t1.transferFrom(seller1, seller2, send1);
+    Token t1 = Token(order_addresses[1]);
+    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[0]);
+
     return true;
   }
 }

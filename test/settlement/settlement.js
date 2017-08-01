@@ -148,16 +148,19 @@ contract('Settlement' , (accounts) => {
     }).then((sig) => {
       signature = sig
       return settlementContract.atomicMatch(
-        orderHash,
-        order.seller,
-        order.token,
-        order.quantity,
-        order.price,
-        sig[0],
-        sig[1],
-        sig[2],
-        accounts[2],
-        order.quantity
+        [orderHash, sig[1], sig[2]],
+        [order.quantity, order.price, sig[0]],
+        [accounts[0], order.token, accounts[1]]
+        // orderHash,
+        // order.seller,
+        // order.token,
+        // order.quantity,
+        // order.price,
+        // sig[0],
+        // sig[1],
+        // sig[2],
+        // accounts[2],
+        // order.quantity
       )
     }).then((res) => {
       console.log('res', res)
