@@ -138,10 +138,8 @@ contract('Settlement' , (accounts) => {
       return Token.new('Mob', 'MOB', 1000)
     }).then((inst) => {
       tokenContract = inst
-      console.log(1)
       return inst.approve(settlementContract.address, 300)
     }).then((res) => {
-      console.log(2)
       order = {
         seller: accounts[0],
         token: tokenContract.address,
@@ -149,7 +147,6 @@ contract('Settlement' , (accounts) => {
         price: 10,
         permutationID: permutationID,
       }
-      console.log('order', order)
       orderHash = hashOrder(order)
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {

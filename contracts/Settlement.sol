@@ -72,19 +72,12 @@ contract Settlement {
     address[3] order_addresses
   ) returns (bool) {
     require(f(order_addresses[0]));
-    /*require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));*/
-
-    /*require(verifyOrder({
-      seller: order_addresses[0],
-      token: order_addresses[1],
-      quantity: order_ints[0],
-      price: order_ints[1],
-      orderHash: order_bytes[0] }));*/
+    require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
     require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));
-    /*require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));*/
+    require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
-    /*Token t1 =  Token(order_addresses[1]);
-    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);*/
+    Token t1 =  Token(order_addresses[1]);
+    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
 
     return true;
   }
