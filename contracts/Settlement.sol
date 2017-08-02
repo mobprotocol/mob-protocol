@@ -27,7 +27,7 @@ contract Settlement {
     return sha3(seller, token, quantity, price);
   }
 
-  function verifyOrder(address seller, address token, uint quantity, uint price, bytes32 orderHash) returns (bool) {
+  function verifyOrder(address seller, address token, uint quantity, uint price, bytes32 orderHash) internal returns (bool) {
     bytes32 msgHash = sha3(seller, token, quantity, price);
     if (orderHash == msgHash) {
       return true;
@@ -36,7 +36,7 @@ contract Settlement {
     }
   }
 
-  function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) returns (bool) {
+  function verifySignature(bytes32 msg, uint8 v, bytes32 r, bytes32 s, address seller) internal returns (bool) {
     bytes memory prefix = "\x19Ethereum Signed Message:\n32";
     bytes32 msgHash = sha3(prefix, msg);
     address signer = ecrecover(msgHash, v, r, s);
@@ -47,7 +47,7 @@ contract Settlement {
     }
   }
 
-  function verifyAllowance(address token, address seller, uint quantity) returns (bool) {
+  function verifyAllowance(address token, address seller, uint quantity) internal returns (bool) {
     Token t = Token(token);
     uint approval = t.allowance(seller, this);
     if (approval >= quantity) {
@@ -55,6 +55,7 @@ contract Settlement {
     } else {
       return false;
     }
+    return true;
   }
 
   function atomicMatch(
@@ -66,8 +67,8 @@ contract Settlement {
     require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));
     require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
-    Token t1 = Token(order_addresses[1]);
-    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[0]);
+    Token t1 =  Token(order_addresses[1]);
+    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
 
     return true;
   }
