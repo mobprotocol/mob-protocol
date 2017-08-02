@@ -126,40 +126,42 @@ contract('Settlement' , (accounts) => {
     let settlementContract
     let tokenContract
     let signature
+    let orderHash
+    let order
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
     const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
     const permutationID = calculatePermutationID(addressA, addressB)
-    const order = {
-      seller: accounts[0],
-      token: addressA,
-      quantity: 10,
-      price: 10,
-      permutationID: permutationID,
-    }
-    const orderHash = hashOrder(order)
+
     Settlement.new(permutationID, addressA, addressB)
     .then((inst) => {
       settlementContract = inst
       return Token.new('Mob', 'MOB', 1000)
     }).then((inst) => {
       tokenContract = inst
+      console.log(1)
       return inst.approve(settlementContract.address, 300)
     }).then((res) => {
-    //   return generateSignature(accounts[0], orderHash)
-    // }).then((sig) => {
-    //   signature = sig
-    //   return delay(3000)
-    // }).then(() => {
-    //   console.log('settlementContract', settlementContract)
-    //   // return  settlementContract.atomicMatch.call(
-    //   //   [orderHash, signature[1], signature[2]],
-    //   //   [order.quantity, order.price, signature[0]],
-    //   //   [accounts[0], tokenContract.address, accounts[1]]
-    //   // )
-    //   return true
-    // }).then((res) => {
-    //   console.log('res from atomic swap', res)
-    //   assert.equal(res, true)
+      console.log(2)
+      order = {
+        seller: accounts[0],
+        token: tokenContract.address,
+        quantity: 10,
+        price: 10,
+        permutationID: permutationID,
+      }
+      console.log('order', order)
+      orderHash = hashOrder(order)
+      return generateSignature(accounts[0], orderHash)
+    }).then((sig) => {
+      signature = sig
+      return  settlementContract.atomicMatch.call(
+        [orderHash, signature[1], signature[2]],
+        [order.quantity, order.price, signature[0]],
+        [accounts[0], tokenContract.address, accounts[1]]
+      )
+    }).then((res) => {
+      console.log('res from atomic swap', res)
+      assert.equal(res, true)
     })
   })
 
