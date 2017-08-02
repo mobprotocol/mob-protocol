@@ -59,10 +59,17 @@ contract Settlement {
     uint[4] order_ints,
     address[3] order_addresses
   ) returns (bool) {
+    /* VERIFYING ORDER 1 */
     require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
     require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));
     require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
-    require(order_ints[2] >= 1);
+
+    /* VERIFYING ORDER 2 */
+
+    /* VERIFY MATCH */
+    require(order_ints[1] >= 1 / order_ints[3]);
+
+    /* PERFORM SWAP */
     Token t1 =  Token(order_addresses[1]);
     t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
 
