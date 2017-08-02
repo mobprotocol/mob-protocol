@@ -28,9 +28,9 @@ contract Settlement {
   }
 
   function verifyOrder(address seller, address token, uint quantity, uint price, bytes32 orderHash) internal returns (bool) {
-    bytes32 msgHash = sha3(seller, token, quantity, price);
+    bytes32 memory msgHash = sha3(seller, token, quantity, price);
     if (orderHash == msgHash) {
-      return true;
+      return  true;
     } else {
       return false;
     }
@@ -58,17 +58,33 @@ contract Settlement {
     return true;
   }
 
+  function f(address seller) internal returns (bool) {
+    if (seller == msg.sender) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function atomicMatch(
     bytes32[3] order_bytes,
     uint[3] order_ints,
     address[3] order_addresses
   ) returns (bool) {
+    require(f(order_addresses[0]));
     require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
-    require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));
-    require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
-    Token t1 =  Token(order_addresses[1]);
-    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
+    /*require(verifyOrder({
+      seller: order_addresses[0],
+      token: order_addresses[1],
+      quantity: order_ints[0],
+      price: order_ints[1],
+      orderHash: order_bytes[0] }));*/
+    /*require(verifySignature(order_bytes[0], uint8(order_ints[2]), order_bytes[1], order_bytes[2], order_addresses[0]));*/
+    /*require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));*/
+
+    /*Token t1 =  Token(order_addresses[1]);
+    t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);*/
 
     return true;
   }

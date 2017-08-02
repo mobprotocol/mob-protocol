@@ -18,7 +18,7 @@ contract Token {
         balances[msg.sender] = _supply;
     }
 
-    function transfer( address to, uint value ) returns (bool) {
+    function transfer(address to, uint value) returns (bool) {
         require(balances[msg.sender] >= value);
         balances[msg.sender] -= value;
         balances[to] += value;
@@ -40,11 +40,11 @@ contract Token {
     function approve( address spender, uint value ) returns (bool) {
         require(balances[msg.sender] >= value);
         approvals[msg.sender][spender] = value;
-        Approval( msg.sender, spender, value );
+        Approval(msg.sender, spender, value);
         return true;
     }
 
-    function allowance( address owner, address spender ) constant returns (uint) {
+    function allowance(address owner, address spender) constant returns (uint) {
         return approvals[owner][spender];
     }
 
