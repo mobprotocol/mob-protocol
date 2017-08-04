@@ -152,8 +152,8 @@ contract('Settlement' , (accounts) => {
         price: 10,
         permutationID: permutationID,
       }
-      orderHash = hashOrder(order1)
-      return generateSignature(accounts[0], orderHash)
+      orderHasher = hashOrder(order1)
+      return generateSignature(accounts[0], orderHasher)
     }).then((sig) => {
       signature1 = sig
       return Token.new('Brave', 'BAT', 1000)
@@ -173,8 +173,9 @@ contract('Settlement' , (accounts) => {
       return generateSignature(accounts[1], orderHash2)
     }).then((sig) => {
       signature2 = sig
+      console.log('orderHash', orderHasher)
       return settlementContract.atomicMatch.call(
-        [orderHash, signature1[1], signature1[2]],
+        [orderHasher, signature1[1], signature1[2]],
         [order1.quantity, order1.price, signature1[0], 5],
         [accounts[0], tokenContract1.address, accounts[1]]
       )
