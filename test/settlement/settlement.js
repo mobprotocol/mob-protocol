@@ -124,10 +124,15 @@ contract('Settlement' , (accounts) => {
 
   it('Should pass verifactions given correct order, signature, allowance, and matching criterea', () => {
     let settlementContract
-    let tokenContract
-    let signature
-    let orderHash
-    let order
+    let tokenContract1
+    let tokenContract2
+    let signature1
+    let signature2
+    let orderHash1
+    let orderHash2
+    let order1
+    let order2
+
     const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
     const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
     const permutationID = calculatePermutationID(addressA, addressB)
@@ -140,7 +145,7 @@ contract('Settlement' , (accounts) => {
       tokenContract = inst
       return inst.approve(settlementContract.address, 300)
     }).then((res) => {
-      order = {
+      order1 = {
         seller: accounts[0],
         token: tokenContract.address,
         quantity: 10,
@@ -153,6 +158,7 @@ contract('Settlement' , (accounts) => {
       signature = sig
       return tokenContract.approve(settlementContract.address, 500)
     }).then((res) => {
+      return generateSignature
       console.log('res here', res)
       return settlementContract.atomicMatch.call(
         [orderHash, signature[1], signature[2]],
@@ -164,8 +170,6 @@ contract('Settlement' , (accounts) => {
       assert.equal(res, true)
     })
   })
-
-
 
   // it('Shoud verify transfer occured', () => {
   //   let settlementContract
