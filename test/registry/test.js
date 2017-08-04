@@ -20,6 +20,10 @@ contract('Registry', (accounts) => {
       return Registry.new()
     }).then((inst) => {
       console.log('inst', inst)
+      registryContract = inst
+      return registryContract.registerPermutation.call(permutationID, settlementContract.address)
+    }).then((res) => {
+      console.log('res', res)
     })
   })
 })
