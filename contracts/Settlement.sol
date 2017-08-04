@@ -55,9 +55,9 @@ contract Settlement {
   }
 
   function atomicMatch(
-    bytes32[3] order_bytes,
-    uint[4] order_ints,
-    address[3] order_addresses
+    bytes32[6] order_bytes,
+    uint[6] order_ints,
+    address[4] order_addresses
   ) returns (bool) {
     /* VERIFYING ORDER 1 */
     require(verifyOrder(order_addresses[0], order_addresses[1], order_ints[0], order_ints[1], order_bytes[0]));
@@ -65,6 +65,7 @@ contract Settlement {
     require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
     /* VERIFYING ORDER 2 */
+    require(verifyOrder(order_addresses[3], order_addresses[4], order_ints[3], order_ints[4], order_bytes[2]));
 
     /* VERIFY MATCH */
     require(order_ints[1] >= 1 / order_ints[3]);
