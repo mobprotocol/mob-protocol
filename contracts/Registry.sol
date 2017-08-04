@@ -1,9 +1,9 @@
 pragma solidity ^0.4.11;
 
-contract EdgeRegistry {
+contract Registry {
   mapping(bytes32 => address) public registry;
 
-  function registerPermutation(bytes32 permuationID, address settlementContract) returns (bool) {
+  function registerPermutation(bytes32 permutationID, address settlementContract) returns (bool) {
     registry[permutationID] = settlementContract;
   }
 

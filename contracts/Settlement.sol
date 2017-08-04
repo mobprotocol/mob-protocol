@@ -19,7 +19,7 @@ contract Settlement {
 
   function broadcast(bytes32 order, uint sellAmount, bytes32 price) returns (bool) {
     orderBroadcast(msg.sender, order, sellAmount, price);
-    orders[msg.sender][order] = sellAmount;
+    orders[order] = sellAmount;
     return true;
   }
 
@@ -76,7 +76,7 @@ contract Settlement {
     Token t1 =  Token(order_addresses[1]);
     t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
     Token t2 = Token(order_addresses[3]);
-    t2.transferFrom(order_addresses[2], order_addresses[0], order_ints[4])''
+    t2.transferFrom(order_addresses[2], order_addresses[0], order_ints[4]);
     return true;
   }
 }
