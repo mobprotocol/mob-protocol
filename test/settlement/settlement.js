@@ -102,7 +102,7 @@ contract('Settlement' , (accounts) => {
   //
   // it('Should verify that approval balance is greater than order amount', () => {
   //   let settlementContract
-  //   let tokenContractle
+  //   let ractle
   //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
   //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
   //   const permutationID = calculatePermutationID(addressA, addressB)
@@ -112,10 +112,10 @@ contract('Settlement' , (accounts) => {
   //     settlementContract = inst
   //     return Token.new('Mob', 'MOB', 1000)
   //   }).then((inst) => {
-  //     tokenContract = inst
+  //     ract = inst
   //     return inst.approve(settlementContract.address, 500)
   //   }).then((res) => {
-  //     return settlementContract.verifyAllowance.call(tokenContract.address, accounts[0], 500)
+  //     return settlementContract.verifyAllowance.call(ract.address, accounts[0], 500)
   //   }).then((res) => {
   //     console.log('res from verify', res)
   //     assert.equal(res, true)
@@ -124,8 +124,8 @@ contract('Settlement' , (accounts) => {
 
   it('Should pass verifactions given correct order, signature, allowance, and matching criterea', () => {
     let settlementContract
-    let tokenContract1
-    let tokenContract2
+    let ract1
+    let ract2
     let signature1
     let signature2
     let orderHash1
@@ -147,12 +147,12 @@ contract('Settlement' , (accounts) => {
     }).then((res) => {
       order1 = {
         seller: accounts[0],
-        token: tokenContract.address,
+        token: tokenContract1.address,
         quantity: 10,
         price: 10,
         permutationID: permutationID,
       }
-      orderHash = hashOrder(order)
+      orderHash = hashOrder(order1)
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature1 = sig
@@ -162,11 +162,21 @@ contract('Settlement' , (accounts) => {
       console.log('tokenContract2', tokenContract2)
       return tokenContract2.approve(settlementContract.address, 500)
     }).then((res) => {
-      console.log('res here', res)
+      order2 = {
+        seller: accounts[1],
+        token: tokenContract2.address,
+        quantity: 10,
+        price: 10,
+        permutationID: permutationID
+      }
+      orderHash2 = hashOrder(order2)
+      return generateSignature(accounts[1], orderHash2)
+    }).then((sig) => {
+      signature2 = sig
       return settlementContract.atomicMatch.call(
-        [orderHash, signature[1], signature[2]],
-        [order.quantity, order.price, signature[0], 5],
-        [accounts[0], tokenContract.address, accounts[1]]
+        [orderHash, signature1[1], signature1[2]],
+        [order1.quantity, order1.price, signature1[0], 5],
+        [accounts[0], tokenContract1.address, accounts[1]]
       )
     }).then((res) => {
       console.log('res from atomic swap', res)
@@ -176,7 +186,7 @@ contract('Settlement' , (accounts) => {
 
   // it('Shoud verify transfer occured', () => {
   //   let settlementContract
-  //   let tokenContract
+  //   let ract
   //   let signature
   //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
   //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
@@ -194,7 +204,7 @@ contract('Settlement' , (accounts) => {
   //     settlementContract = inst
   //     return Token.new('Mob', 'MOB', 1000)
   //   }).then((inst) => {
-  //     tokenContract = inst
+  //     ract = inst
   //     return inst.approve(settlementContract.address, 500)
   //   }).then((res) => {
   //     console.log('res from approve call', res)
@@ -204,7 +214,7 @@ contract('Settlement' , (accounts) => {
   //     return settlementContract.atomicMatch(
   //       [orderHash, sig[1], sig[2]],
   //       [order.quantity, order.price, sig[0]],
-  //       [accounts[0], tokenContract.address, accounts[1]]
+  //       [accounts[0], ract.address, accounts[1]]
   //     )
   //   }).then((res) => {
   //     console.log('res', res)
@@ -214,7 +224,7 @@ contract('Settlement' , (accounts) => {
 
   // it('Should verify orders are in the market', () => {
   //   let settlementContract
-  //   let tokenContract
+  //   let ract
   //   const addressA = '0x2da664251cdff1ef96471d5570d6b7d3687b4516'
   //   const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
   //   const permutationID = calculatePermutationID(addressA, addressB)
