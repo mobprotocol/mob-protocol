@@ -164,8 +164,11 @@ contract('Settlement' , (accounts) => {
       return tokenContract2.balanceOf.call(accounts[1])
     }).then((balance) => {
       console.log('balance', balance)
-      return tokenContract2.approve(settlementContract.address, 500)
+      return tokenContract2.approve(settlementContract.address, 500, {from: accounts[1]})
     }).then(() => {
+      return tokenContract2.allowance.call(accounts[1], settlementContract.address)
+    }).then((allowance) => {
+      console.log('allowance', allowance)
       order2 = {
         seller: accounts[1],
         token: tokenContract2.address,
