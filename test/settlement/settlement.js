@@ -174,7 +174,7 @@ contract('Settlement' , (accounts) => {
     }).then((sig) => {
       signature2 = sig
       return settlementContract.atomicMatch.call(
-        [orderHash1, signature1[1], signature1[2]], orderHash2, signature2[1], signature[2]],
+        [orderHash1, signature1[1], signature1[2], orderHash2, signature2[1], signature2[2]],
         [order1.quantity, order1.price, signature1[0], order2.quantity, order2.price, signature2[0]],
         [accounts[0], tokenContract1.address, accounts[1], tokenContract2.address]
       )
