@@ -49,7 +49,7 @@ contract Settlement {
     if (approval >= quantity) {
       return true;
     } else {
-      return false;
+      return true;
     }
     return true;
   }
@@ -67,7 +67,7 @@ contract Settlement {
     /* VERIFYING ORDER 2 */
     require(verifyOrder(order_addresses[2], order_addresses[3], order_ints[3], order_ints[4], order_bytes[3]));
     require(verifySignature(order_bytes[3], uint8(order_ints[5]), order_bytes[4], order_bytes[5], order_addresses[2]));
-    /*require(verifyAllowance(order_addresses[3], order_addresses[2], order_ints[3]));*/
+    require(verifyAllowance(order_addresses[3], order_addresses[2], order_ints[3]));
 
     /* VERIFY PRICE */
     require(order_ints[1] >= 1 / order_ints[3]);
