@@ -142,7 +142,7 @@ contract('Settlement' , (accounts) => {
       settlementContract = inst
       return Token.new('Mob', 'MOB', 1000)
     }).then((inst) => {
-      tokenContract = inst
+      tokenContract1 = inst
       return inst.approve(settlementContract.address, 300)
     }).then((res) => {
       order1 = {
@@ -155,10 +155,13 @@ contract('Settlement' , (accounts) => {
       orderHash = hashOrder(order)
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
-      signature = sig
-      return tokenContract.approve(settlementContract.address, 500)
+      signature1 = sig
+      return Token.new('Brave', 'BAT', 1000)
+    }).then((inst) => {
+      tokenContract2 = inst
+      console.log('tokenContract2', tokenContract2)
+      return tokenContract2.approve(settlementContract.address, 500)
     }).then((res) => {
-      return generateSignature
       console.log('res here', res)
       return settlementContract.atomicMatch.call(
         [orderHash, signature[1], signature[2]],
