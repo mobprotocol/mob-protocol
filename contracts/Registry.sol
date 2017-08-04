@@ -8,7 +8,7 @@ contract Registry {
   }
 
   function permutationExists(bytes32 permutationID) returns (bool) {
-    if(registry[permutationID]) {
+    if(registry[permutationID] == 0) {
       return true;
     } else {
       return false;
