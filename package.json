@@ -6,7 +6,8 @@
   "scripts": {
     "signature-test": "node ./test/signature.js",
     "web3-sign": "node ./test/web3sign.js",
-    "settlement-tests": "truffle test ./test/settlement/settlement.js"
+    "settlement-tests": "truffle test ./test/settlement/settlement.js",
+    "registry-tests": "truffle test ./test/registry/test.js"
   },
   "keywords": [
     "exchange",
