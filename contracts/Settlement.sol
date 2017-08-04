@@ -65,7 +65,8 @@ contract Settlement {
     require(verifyAllowance(order_addresses[1], order_addresses[0], order_ints[0]));
 
     /* VERIFYING ORDER 2 */
-    require(verifyOrder(order_addresses[3], order_addresses[4], order_ints[3], order_ints[4], order_bytes[2]));
+    require(verifyOrder(order_addresses[2], order_addresses[3], order_ints[3], order_ints[4], order_bytes[3]));
+    require(verifySignature(order_bytes[3], uint8(order_ints[5), order_bytes[4], order_bytes[5], order_addresses[2]));
 
     /* VERIFY MATCH */
     require(order_ints[1] >= 1 / order_ints[3]);
