@@ -7,7 +7,7 @@ contract Settlement {
   address public tokenA;
   address public tokenB;
 
-  mapping(address => mapping(bytes32 => uint)) public orders;
+  mapping(bytes32 => uint) public orders;
 
   event orderBroadcast(address sender, bytes32 order, uint amount, bytes32 price);
 
@@ -49,7 +49,7 @@ contract Settlement {
     if (approval >= quantity) {
       return true;
     } else {
-      return true;
+      return false;
     }
     return true;
   }
@@ -75,7 +75,8 @@ contract Settlement {
     /* PERFORM SWAP */
     Token t1 =  Token(order_addresses[1]);
     t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
-
+    Token t2 = Token(order_addresses[3]);
+    t2.transferFrom(order_addresses[2], order_addresses[0], order_ints[4])''
     return true;
   }
 }
