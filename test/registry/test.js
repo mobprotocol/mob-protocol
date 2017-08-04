@@ -1,4 +1,4 @@
-const Registry = artifiacts.require("Registry")
+const Registry = artifacts.require("Registry")
 const Token = artifacts.require("Token")
 const Settlement = artifacts.require("Settlement")
 
@@ -9,6 +9,17 @@ const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
 const permutationID = calculatePermutationID(addressA, addressB)
 
 contract('Registry', (accounts) => {
+  let settlementContract
+  let registryContract
+
   it('Should deploy and add settlement contract to registry', () => {
+
+    Settlement.new(permutationID, addressA, addressB)
+    .then((inst) => {
+      settlementContract = inst
+      return Registry.new()
+    }).then((inst) => {
+      console.log('inst', inst)
+    })
   })
 })
