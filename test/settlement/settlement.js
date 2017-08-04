@@ -159,10 +159,13 @@ contract('Settlement' , (accounts) => {
       return Token.new('Brave', 'BAT', 1000)
     }).then((inst) => {
       tokenContract2 = inst
-      return tokenContract2.transfer(accounts[2], 500)
+      return tokenContract2.transfer(accounts[1], 500)
     }).then(() => {
+      return tokenContract2.balanceOf.call(accounts[1])
+    }).then((balance) => {
+      console.log('balance', balance)
       return tokenContract2.approve(settlementContract.address, 500)
-    }).then((res) => {
+    }).then(() => {
       order2 = {
         seller: accounts[1],
         token: tokenContract2.address,
