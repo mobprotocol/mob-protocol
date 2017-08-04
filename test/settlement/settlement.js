@@ -122,7 +122,7 @@ contract('Settlement' , (accounts) => {
   //   })
   // })
 
-  it('Should pass verifaction given correct order and signature', () => {
+  it('Should pass verifactions given correct order, signature, allowance, and matching criterea', () => {
     let settlementContract
     let tokenContract
     let signature
@@ -151,9 +151,12 @@ contract('Settlement' , (accounts) => {
       return generateSignature(accounts[0], orderHash)
     }).then((sig) => {
       signature = sig
-      return  settlementContract.atomicMatch.call(
+      return tokenContract.approve(settlementContract.address, 500)
+    }).then((res) => {
+      console.log('res here', res)
+      return settlementContract.atomicMatch.call(
         [orderHash, signature[1], signature[2]],
-        [order.quantity, order.price, signature[0]],
+        [order.quantity, order.price, signature[0], 5],
         [accounts[0], tokenContract.address, accounts[1]]
       )
     }).then((res) => {
@@ -161,6 +164,8 @@ contract('Settlement' , (accounts) => {
       assert.equal(res, true)
     })
   })
+
+
 
   // it('Shoud verify transfer occured', () => {
   //   let settlementContract
