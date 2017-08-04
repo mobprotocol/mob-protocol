@@ -159,7 +159,8 @@ contract('Settlement' , (accounts) => {
       return Token.new('Brave', 'BAT', 1000)
     }).then((inst) => {
       tokenContract2 = inst
-      console.log('tokenContract2', tokenContract2)
+      return tokenContract2.transfer(accounts[2], 500)
+    }).then(() => {
       return tokenContract2.approve(settlementContract.address, 500)
     }).then((res) => {
       order2 = {
