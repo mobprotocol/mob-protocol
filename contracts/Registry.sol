@@ -1,6 +1,7 @@
 pragma solidity ^0.4.11;
 
 contract Registry {
+
   mapping(bytes32 => address) public registry;
 
   function permutationExists(bytes32 permutationID) returns (bool) {
@@ -27,5 +28,6 @@ contract Registry {
     require(permutationExists(permutationID));
     require(contractExists(settlementContract));
     registry[permutationID] = settlementContract;
+    return true;
   }
 }
