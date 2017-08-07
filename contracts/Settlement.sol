@@ -9,18 +9,10 @@ contract Settlement {
 
   mapping(bytes32 => uint) public orders;
 
-  event orderBroadcast(address sender, bytes32 order, uint amount, bytes32 price);
-
   function Settlement(bytes32 _permutationID, address _tokenA, address _tokenB) {
     permutationID = _permutationID;
     tokenA = _tokenA;
     tokenB = _tokenB;
-  }
-
-  function broadcast(bytes32 order, uint sellAmount, bytes32 price) returns (bool) {
-    orderBroadcast(msg.sender, order, sellAmount, price);
-    orders[order] = sellAmount;
-    return true;
   }
 
   function verifyOrder(address seller, address token, uint quantity, uint price, bytes32 orderHash) returns (bool) {
