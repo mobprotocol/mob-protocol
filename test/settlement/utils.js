@@ -52,6 +52,22 @@ function hashOrder(order) {
   ).toString('hex')
 }
 
+/**
+order1 I would like to receive price1 * quantity1
+order2 I would like to recieve price2 * quantity2
+*/
+function matchCalculation(order1, order2) {
+  return new Promise((resolve, reject) => {
+    const receive1 = order1.price * order1.quantity
+    const receive2 = order2.price * order2.quantity
+    
+  })
+}
+
+function receiveAmount(price, quantity) {
+  return price * quantity
+}
+
 function delay(t) {
   return new Promise((resolve) => {
     if (t <= 0) {
