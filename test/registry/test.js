@@ -19,7 +19,6 @@ contract('Registry', (accounts) => {
       settlementContract = inst
       return Registry.new()
     }).then((inst) => {
-      console.log('inst', inst)
       registryContract = inst
       return registryContract.registerPermutation.call(permutationID, settlementContract.address)
     }).then((res) => {
