@@ -58,8 +58,18 @@ order2 I would like to recieve price2 * quantity2
 */
 function matchCalculation(order1, order2) {
   return new Promise((resolve, reject) => {
-    const receive1 = order1.price * order1.quantity
-    const receive2 = order2.price * order2.quantity
+    order1.receive1 = order1.price * order1.quantity
+    order2.receive2 = order2.price * order2.quantity
+    if (receive1 < receive2) {
+      return calculateSettlement(order2, order1)
+    } else {
+      return calculateSettlement(order1, order2)
+    }
+  })
+}
+
+function calculateSettlement(settle1, settle2) {
+  return new Promise((resolve, reject) => {
     
   })
 }
