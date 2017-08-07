@@ -4,7 +4,7 @@ contract Registry {
 
   mapping(bytes32 => address) public registry;
 
-  function permutationExists(bytes32 permutationID) returns (bool) {
+  function permutationAvailable(bytes32 permutationID) internal returns (bool) {
     if(registry[permutationID] == 0) {
       return true;
     } else {
@@ -12,10 +12,10 @@ contract Registry {
     }
   }
 
-  function contractExists(address settlementContract) returns (bool) {
+  function contractExists(address adrs) internal returns (bool) {
     uint length;
     assembly {
-      length := extcodesize(settlementContract)
+      length := extcodesize(adrs)
     }
     if (length > 0) {
       return true;
@@ -25,7 +25,7 @@ contract Registry {
   }
 
   function registerPermutation(bytes32 permutationID, address settlementContract) returns (bool) {
-    require(permutationExists(permutationID));
+    require(permutationAvailable(permutationID));
     require(contractExists(settlementContract));
     registry[permutationID] = settlementContract;
     return true;
