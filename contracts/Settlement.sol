@@ -48,7 +48,7 @@ contract Settlement {
 
   function atomicMatch(
     bytes32[6] order_bytes,
-    uint[9] order_ints,
+    uint[10] order_ints,
     address[4] order_addresses
   ) returns (bool) {
     /* VERIFYING ORDER 1 */
@@ -65,27 +65,17 @@ contract Settlement {
     require(order_ints[1] <= 1 / order_ints[3]);
 
     /* VERIFY SEND & SPREAD */
-    // verify send amount 1
-    require(send1 >= send2 * price);
-    // verify send amount 2
-    require(send2 >= send1 * price);
-    // verify spread
-    require(spread == )
 
     /* HANDLE PARTIAL FILL */
-    /*if (order_ints[0] <) {
-
-    }
-
-    if (order_ints[3] <) {
-
-    }*/
 
     /* PERFORM SWAP */
     Token t1 =  Token(order_addresses[1]);
     t1.transferFrom(order_addresses[0], order_addresses[2], order_ints[1]);
     Token t2 = Token(order_addresses[3]);
     t2.transferFrom(order_addresses[2], order_addresses[0], order_ints[4]);
+
+    /* SEND SPREAD AMOUNTS */
+    
     return true;
   }
 }
