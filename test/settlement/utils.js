@@ -85,15 +85,21 @@ function inMarket(price1, price2) {
   }
 }
 
-function pricePreference(price1, price2) {
-  const diff = price1 - 1/price2
-  if (diff == 0) {
-    return 0
-  } else if (diff >= 0) {
-    return 0
-  } else {
-    return 1
+
+function calculateSettlement(order1, order2, preference) {
+  const settlement = {}
+  // calculate send1
+   settlement.send1 = order2.price * order2.quantity
+  // calculate send2
+   settlement.send2 = order1.price * order1.quantity
+  // calculate spread
+  if (preference == 0) {
+    settlement.spread = 0
+  } else if (preference == 1) {
+    settlement.spread =
   }
+
+
 }
 
 function receiveAmount(price, quantity) {
