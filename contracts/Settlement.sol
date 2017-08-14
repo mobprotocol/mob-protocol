@@ -62,10 +62,15 @@ contract Settlement {
     require(verifyAllowance(order_addresses[3], order_addresses[2], order_ints[3]));
 
     /* VERIFY PRICE */
-    require(order_ints[1] >= 1 / order_ints[3]);
+    require(order_ints[1] <= 1 / order_ints[3]);
 
     /* VERIFY SEND & SPREAD */
-
+    // verify send amount 1
+    require(send1 >= send2 * price);
+    // verify send amount 2
+    require(send2 >= send1 * price);
+    // verify spread
+    require(spread == )
 
     /* HANDLE PARTIAL FILL */
     /*if (order_ints[0] <) {
