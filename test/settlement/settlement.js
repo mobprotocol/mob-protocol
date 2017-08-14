@@ -137,6 +137,12 @@ contract('Settlement' , (accounts) => {
     const addressB = '0x6846e948d8b1ec25bb99dedf821b0d658e226595'
     const permutationID = calculatePermutationID(addressA, addressB)
 
+    const settlementEvent = {
+      send1: '',
+      send2: '',
+      spread: ''
+    }
+
     Settlement.new(permutationID, addressA, addressB)
     .then((inst) => {
       settlementContract = inst
