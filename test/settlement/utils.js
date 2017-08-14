@@ -68,10 +68,18 @@ function matchCalculation(order1, order2) {
   })
 }
 
-function calculateSettlement(settle1, settle2) {
+function calculateSettlement(order1, order2) {
   return new Promise((resolve, reject) => {
-    
+
   })
+}
+
+function inMarket(price1, price2) {
+  if (price1 <= 1/price2) {
+    return true
+  } else {
+    return false
+  }
 }
 
 function receiveAmount(price, quantity) {
