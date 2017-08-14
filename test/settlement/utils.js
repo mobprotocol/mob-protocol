@@ -70,6 +70,9 @@ function matchCalculation(order1, order2) {
 
 function calculateSettlement(order1, order2) {
   return new Promise((resolve, reject) => {
+    if (inMarket(order1.price, order2.price) == false) {
+      reject("prices not in the market")
+    }
 
   })
 }
@@ -79,6 +82,17 @@ function inMarket(price1, price2) {
     return true
   } else {
     return false
+  }
+}
+
+function pricePreference(price1, price2) {
+  const diff = price1 - 1/price2
+  if (diff == 0) {
+    return 0
+  } else if (diff >= 0) {
+    return 0
+  } else {
+    return 1
   }
 }
 
